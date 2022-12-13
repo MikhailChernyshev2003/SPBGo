@@ -49,7 +49,7 @@ const EventsBody : React.FC = () => {
     useEffect(() => {
 
         InitEventsAction("http://77.234.215.138:60866/spbgo/api/events?offset=0&limit=18");
-        console.log(events);
+        // console.log(events);
     }, [])
 
     // useEffect(() => {
@@ -94,7 +94,7 @@ const EventsBody : React.FC = () => {
         if (Fetching) {
             setOffset(offset + 18);
             GetEventsAction(`http://77.234.215.138:60866/spbgo/api/events?offset=${offset}&limit=18`, events);
-            console.log(events);
+            // console.log(events);
         }
     },[Fetching])
 

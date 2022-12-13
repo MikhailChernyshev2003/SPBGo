@@ -10,7 +10,8 @@ const initialAuthState: AuthState = {
     template: '',
     visible: false,
     accessToken: "",
-    name: ""
+    name: "",
+    noLoginError: false
 }
 
 export const authReducer = (state = initialAuthState, action: AuthAction): AuthState => {
@@ -31,6 +32,10 @@ export const authReducer = (state = initialAuthState, action: AuthAction): AuthS
         case AuthTypes.SET_PROFILE_NAME:
             return {...state,
                 name: action.payload,
+            }
+        case AuthTypes.NO_LOGIN_ERROR:
+            return {...state,
+                noLoginError: action.payload,
             }
         default:
             return state

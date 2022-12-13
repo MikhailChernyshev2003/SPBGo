@@ -35,6 +35,7 @@ const EventCardImage = styled.img`
   height: 100%;
   border-radius: 15px;
   z-index: 10;
+  object-fit: cover;
 `
 
 const ImageOverlay = styled.div`
@@ -92,6 +93,11 @@ const Event: React.FC<EventInterface> = (props) => {
 
     const dateString = new Date(props.date);
 
+    function ucFirst(str: string) {
+        if (!str) return str;
+        return str[0].toUpperCase() + str.slice(1);
+    }
+
     const dispatch = useDispatch();
 
     // const handleMouseOver = (event: any) => {
@@ -113,7 +119,6 @@ const Event: React.FC<EventInterface> = (props) => {
     //     event.preventDefault();
     //     ref.current.style!.width = ref.current.getBoundingClientRect().width / 1.5 + "px";
     //     ref.current.style!.height = ref.current.getBoundingClientRect().height / 1.5 + "px";
-    //     console.log("Морозов пидор")
     // }
 
 
@@ -122,10 +127,10 @@ const Event: React.FC<EventInterface> = (props) => {
         <EventCard onClick={() => dispatch({type: EventsTypes.OPEN_EVENT, payload: {eventVisible: true, id: props.id}})}>
             <EventCardImage src={props.image} />
             <ImageOverlay/>
-            <CardName>{props.name}</CardName>
+            <CardName>{ucFirst(props.name)}</CardName>
             <CardInfo>
                 <CardDate>
-                    {`${props.day} ${dateString.toISOString().substring(0, 10).replace(/-/g, ".")}`}
+                    {`${dateString.toISOString().substring(8, 10)}${dateString.toISOString().substring(4, 7).replace(/-/g, ".")}.${dateString.toISOString().substring(0, 4).replace(/-/g, ".")}`}
                 </CardDate>
                 {!props.paid && <IsPaid src={IsPaidImage}/>}
             </CardInfo>

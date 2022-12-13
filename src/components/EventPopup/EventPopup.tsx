@@ -158,7 +158,7 @@ const EventPopup: React.FC<EventPopupInterface> = (props) => {
                             <Weekday>{` - ${props.weekday}`}</Weekday>
                             {props.date && <DateWrapper>{`${dateString.toISOString().substring(8, 10)}${dateString.toISOString().substring(4, 7).replace(/-/g, ".")}.${dateString.toISOString().substring(0, 4).replace(/-/g, ".")}`}</DateWrapper>}
                         </PlaceWrapper>
-                        <Price href={props.link}>Ссылка на KudaGo</Price>
+                        <Price href={props.link} target={"_blank"} rel={"noreferrer"}>Ссылка на KudaGo</Price>
                     </PlaceAndPrice>
                     <Name>{props.name}</Name>
                     <Description>{props.description}</Description>

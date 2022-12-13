@@ -33,6 +33,11 @@ const AuthActions = {
         payload: name
     }),
 
+    NoLoginError: (error: boolean): AuthAction => ({
+        type: AuthTypes.NO_LOGIN_ERROR,
+        payload: error
+    }),
+
     SignInAction: (Login: string, Password: string) => {
         return async (dispatch: AppDispatch) => {
             PostFetch(
@@ -45,8 +50,12 @@ const AuthActions = {
                 // AuthActions.SetAccessToken(response);
                 SetCookie("accessToken", response.access_token, '');
                 dispatch(AuthActions.SetAccessToken(response.access_token));
-                dispatch(AuthActions.SetLogged(true));
-                console.log(response.access_token)
+                typeof response.access_token !== "undefined" && dispatch(AuthActions.SetLogged(true));
+                // console.log(response.access_token)
+                dispatch(AuthActions.NoLoginError(false));
+                if (response.detail === "There is no user with such login!") {
+                    dispatch(AuthActions.NoLoginError(true));
+                }
             })
         }
     },
@@ -82,7 +91,7 @@ const AuthActions = {
             FetchHeaders(
                 URLTypes.get_profile, token
             ).then(response => {
-                console.log(response.name)
+                // console.log(response.name)
                 dispatch(AuthActions.SetProfileName(response.name))
             })
         }

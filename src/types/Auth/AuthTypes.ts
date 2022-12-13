@@ -9,7 +9,8 @@ export interface AuthState {
     template: string;
     visible: boolean;
     accessToken: string;
-    name: string
+    name: string;
+    noLoginError: boolean
 }
 
 export enum AuthTypes {
@@ -22,7 +23,8 @@ export enum AuthTypes {
     SIGNUP_PAGE_VISIBLE = "SIGNUP_PAGE_VISIBLE",
     SET_ACCESS_TOKEN = "SET_ACCESS_TOKEN",
     SET_LOGGED = "SET_LOGGED",
-    SET_PROFILE_NAME = "SET_PROFILE_NAME"
+    SET_PROFILE_NAME = "SET_PROFILE_NAME",
+    NO_LOGIN_ERROR = "NO_LOGIN_ERROR"
 }
 
 export interface AuthDataLogIn {
@@ -107,10 +109,16 @@ interface SetProfileName {
     payload: string
 }
 
+interface NoLoginError {
+    type: AuthTypes.NO_LOGIN_ERROR,
+    payload: boolean
+}
+
 
 export type AuthAction =
     AuthActionInit      |
     SetAccessToken      |
     SetLogged           |
     SetProfileName      |
+    NoLoginError        |
     SignUpPageVisible   ;

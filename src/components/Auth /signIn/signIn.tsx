@@ -6,6 +6,7 @@ import {useDispatch} from "react-redux";
 import {useActions} from "../../../hooks/useActions";
 import {AuthTypes} from "../../../types/Auth/AuthTypes";
 import ErrorImg from "../../../static/svg/error.svg";
+import {useTypedSelector} from "../../../hooks/useTypedSelector";
 
 const SignInBody = styled.div`
   display: flex;
@@ -93,6 +94,7 @@ const ErrorMsg = styled.div`
   width: 283px;
 `
 
+
 const SignInComponent: React.FC = () => {
 
     const loginInput = useRef(null);
@@ -108,6 +110,8 @@ const SignInComponent: React.FC = () => {
     const [passwordType, setPasswordType] = useState("password");
 
     const { SignUpPageVisible } = useActions();
+
+    const { noLoginError } = useTypedSelector(state => state.auth);
 
     const dispatch = useDispatch();
 
@@ -171,6 +175,12 @@ const SignInComponent: React.FC = () => {
                             Логин должен состоять из 3-15 латинских букв и цифр.
                         </ErrorMsg>
                     </ErrorWrapper>}
+                    {noLoginError && <ErrorWrapper>
+                        <img src={ErrorImg}/>
+                        <ErrorMsg>
+                            Пользователь с таким логином не зарегистрирован.
+                        </ErrorMsg>
+                    </ErrorWrapper>}
                 </InputWrapper>
 
                 <InputWrapper>
@@ -185,9 +195,9 @@ const SignInComponent: React.FC = () => {
                     </ErrorWrapper>}
                 </InputWrapper>
 
-                <SignInButton id={"submit"} active={activeButton} type={"submit"} disabled={!activeButton}>
+                {<SignInButton id={"submit"} active={activeButton} type={"submit"} disabled={!activeButton}>
                     Войти
-                </SignInButton>
+                </SignInButton>}
             </RegForm>
 
             <RegButton onClick={() => {
