@@ -52,6 +52,7 @@ const PopupImage = styled.img`
   height: 50vh;
   margin-bottom: 30px;
   border-radius: 30px;
+  object-fit: cover;
 `
 
 const InfoWrapper = styled.div`
@@ -144,6 +145,11 @@ const EventPopup: React.FC<EventPopupInterface> = (props) => {
 
     const dispatch = useDispatch();
 
+    function ucFirst(str: string) {
+        if (!str) return str;
+        return str[0].toUpperCase() + str.slice(1);
+    }
+
     return(
         <Overlay>
             {props && <PopupBody>
@@ -160,7 +166,7 @@ const EventPopup: React.FC<EventPopupInterface> = (props) => {
                         </PlaceWrapper>
                         <Price href={props.link} target={"_blank"} rel={"noreferrer"}>Ссылка на KudaGo</Price>
                     </PlaceAndPrice>
-                    <Name>{props.name}</Name>
+                    <Name>{ucFirst(props.name)}</Name>
                     <Description>{props.description}</Description>
                 </InfoWrapper>
             </PopupBody>}
